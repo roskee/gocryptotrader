@@ -611,6 +611,7 @@ func (m *SyncManager) syncTicker(c *currencyPairSyncAgent, e exchange.IBotExchan
 		m.PrintTickerSummary(result, "REST", err)
 		if err == nil {
 			if m.remoteConfig.WebsocketRPC.Enabled {
+				result.Pair = result.Pair.Format(m.format)
 				relayWebsocketEvent(result, "ticker_update", c.Key.Asset.String(), exchangeName)
 			}
 		}
@@ -660,6 +661,7 @@ func (m *SyncManager) syncOrderbook(c *currencyPairSyncAgent, e exchange.IBotExc
 		m.PrintOrderbookSummary(result, "REST", err)
 		if err == nil {
 			if m.remoteConfig.WebsocketRPC.Enabled {
+				result.Pair = result.Pair.Format(m.format)
 				relayWebsocketEvent(result, "orderbook_update", c.Key.Asset.String(), e.GetName())
 			}
 		}
